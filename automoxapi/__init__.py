@@ -1,9 +1,9 @@
 """
 This is a thin python wrapper for the Automox API
 """
-from urllib.request import Request, urlopen
-from urllib.parse import urlencode
+import requests
 import json
+from urllib import urlencode
 
 __version__ = '0.0.1'
 
@@ -36,8 +36,9 @@ class Automox:
         query['api_key'] = self.api_key
         url = 'https://console.automox.com/api/{}?{}'.format('/'.join(str(p) for p in path), urlencode(query))
         try:
-            return json.loads(urlopen(Request(method=method, data=str(data).encode(), url=url)).read().decode())
+            return requests.request(method=method, data=str(data).encode(), url=url).json()
         except Exception as e:
+            print e
             print(url, data)
 
     def update_approval(self, approval_id, approval):
@@ -46,7 +47,7 @@ class Automox:
         a patch; set it to false to reject a patch
         """
         return self._request('PUT', None, approval, 'approvals', approval_id)
-    
+
     def get_server_queues(self, server_id, organization_id):
         """Returns the command queue for the specified server (endpoint)"""
         return self._request('GET', {'o': organization_id}, None, 'servers', server_id, 'queues')
