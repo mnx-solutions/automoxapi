@@ -9,10 +9,10 @@ except:
 
 
 setup(
-    name='automoxapi_old',
+    name='automoxapi',
     version=__version__,
-    packages=['automoxapi_old'],
-    url='https://github.com/CyberTechCafe-LLC/automoxapi_old',
+    packages=['automoxapi'],
+    url='https://github.com/mnx-solutions/automoxapi',
     license='GNU General Public License v3.0',
     author='Rob Adkerson',
     author_email='r.j.adkerson@gmail.com',
